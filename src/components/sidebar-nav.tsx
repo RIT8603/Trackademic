@@ -24,6 +24,7 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 const links = [
   { href: '/student-dashboard', label: 'Student Dashboard', icon: GraduationCap },
@@ -44,6 +45,12 @@ const bottomLinks = [
 
 export function SidebarNav() {
   const pathname = usePathname()
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
 
   return (
     <>
@@ -56,32 +63,36 @@ export function SidebarNav() {
         </div>
       </SidebarHeader>
       <SidebarContent className="p-2">
-        <SidebarMenu>
-          {links.map((link) => (
-            <SidebarMenuItem key={link.href}>
-              <Link href={link.href} passHref>
-                <SidebarMenuButton isActive={pathname.startsWith(link.href)} tooltip={link.label}>
-                    <link.icon />
-                    <span>{link.label}</span>
-                </SidebarMenuButton>
-              </Link>
-            </SidebarMenuItem>
-          ))}
-        </SidebarMenu>
+        {isClient && (
+          <SidebarMenu>
+            {links.map((link) => (
+              <SidebarMenuItem key={link.href}>
+                <Link href={link.href} passHref>
+                  <SidebarMenuButton isActive={pathname.startsWith(link.href)} tooltip={link.label}>
+                      <link.icon />
+                      <span>{link.label}</span>
+                  </SidebarMenuButton>
+                </Link>
+              </SidebarMenuItem>
+            ))}
+          </SidebarMenu>
+        )}
       </SidebarContent>
       <SidebarFooter>
-        <SidebarMenu>
-            {bottomLinks.map((link) => (
-                <SidebarMenuItem key={link.href}>
-                <Link href={link.href} passHref>
-                    <SidebarMenuButton isActive={pathname.startsWith(link.href)} tooltip={link.label}>
-                        <link.icon />
-                        <span>{link.label}</span>
-                    </SidebarMenuButton>
-                </Link>
-                </SidebarMenuItem>
-            ))}
-        </SidebarMenu>
+        {isClient && (
+          <SidebarMenu>
+              {bottomLinks.map((link) => (
+                  <SidebarMenuItem key={link.href}>
+                  <Link href={link.href} passHref>
+                      <SidebarMenuButton isActive={pathname.startsWith(link.href)} tooltip={link.label}>
+                          <link.icon />
+                          <span>{link.label}</span>
+                      </SidebarMenuButton>
+                  </Link>
+                  </SidebarMenuItem>
+              ))}
+          </SidebarMenu>
+        )}
       </SidebarFooter>
     </>
   )

@@ -17,17 +17,27 @@ import {
   CircleHelp,
   ShieldCheck,
   Video,
+  User,
+  GraduationCap,
+  Briefcase,
 } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 const links = [
-  { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/student-dashboard', label: 'Student Dashboard', icon: GraduationCap },
+  { href: '/faculty-dashboard', label: 'Faculty Dashboard', icon: Briefcase },
+  { href: '/admin-dashboard', label: 'Admin Dashboard', icon: LayoutDashboard },
   { href: '/attendance', label: 'Attendance', icon: CalendarCheck },
   { href: '/planner', label: 'Planner', icon: BookOpenCheck },
   { href: '/classroom', label: 'Live Classroom', icon: Video },
-  { href: '/analytics', label: 'Analytics', icon: BarChart3 },
   { href: '/security', label: 'Security', icon: ShieldAlert },
+]
+
+const bottomLinks = [
+    { href: '/profile', label: 'Profile', icon: User },
+    { href: '/settings', label: 'Settings', icon: Settings },
+    { href: '/help', label: 'Help', icon: CircleHelp },
 ]
 
 export function SidebarNav() {
@@ -48,7 +58,7 @@ export function SidebarNav() {
           {links.map((link) => (
             <SidebarMenuItem key={link.href}>
               <Link href={link.href} passHref>
-                <SidebarMenuButton asChild isActive={pathname === link.href} tooltip={link.label}>
+                <SidebarMenuButton asChild isActive={pathname.startsWith(link.href)} tooltip={link.label}>
                   <span>
                     <link.icon />
                     <span>{link.label}</span>
@@ -61,18 +71,18 @@ export function SidebarNav() {
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton tooltip="Help">
-              <CircleHelp />
-              <span>Help</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton tooltip="Settings">
-              <Settings />
-              <span>Settings</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
+            {bottomLinks.map((link) => (
+                <SidebarMenuItem key={link.href}>
+                <Link href={link.href} passHref>
+                    <SidebarMenuButton asChild isActive={pathname.startsWith(link.href)} tooltip={link.label}>
+                    <span>
+                        <link.icon />
+                        <span>{link.label}</span>
+                    </span>
+                    </SidebarMenuButton>
+                </Link>
+                </SidebarMenuItem>
+            ))}
         </SidebarMenu>
       </SidebarFooter>
     </>

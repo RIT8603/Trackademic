@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Bell, CreditCard, LogOut, Settings, User, ShieldAlert } from "lucide-react"
 import { Badge } from "./ui/badge"
+import Link from "next/link"
 
 export function UserNav() {
   return (
@@ -67,10 +68,12 @@ export function UserNav() {
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem>
-              <User className="mr-2 h-4 w-4" />
-              <span>Profile</span>
-            </DropdownMenuItem>
+            <Link href="/profile">
+              <DropdownMenuItem>
+                <User className="mr-2 h-4 w-4" />
+                <span>Profile</span>
+              </DropdownMenuItem>
+            </Link>
             <DropdownMenuItem>
               <CreditCard className="mr-2 h-4 w-4" />
               <span>Billing</span>

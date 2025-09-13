@@ -52,7 +52,7 @@ export function SidebarNav() {
             <div className="p-2 rounded-lg bg-primary text-primary-foreground w-10 h-10 flex items-center justify-center">
                 <ShieldCheck className="h-6 w-6"/>
             </div>
-            <h1 className="text-xl font-bold font-headline text-sidebar-foreground whitespace-nowrap">Campus Sentinel</h1>
+            <h1 className="text-xl font-bold font-headline text-sidebar-foreground whitespace-nowrap">Trackademix</h1>
         </div>
       </SidebarHeader>
       <SidebarContent className="p-2">

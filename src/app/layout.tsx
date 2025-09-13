@@ -3,7 +3,7 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'Campus Sentinel',
+  title: 'Trackademix',
   description: 'AI-Powered Smart Attendance & Academic Productivity Platform',
 };
 

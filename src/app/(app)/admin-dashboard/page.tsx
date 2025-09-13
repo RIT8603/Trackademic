@@ -1,5 +1,16 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, BookOpen, ShieldCheck, BarChart3 } from "lucide-react";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Users, BookOpen, ShieldCheck, BarChart3, AlertTriangle, Clock } from "lucide-react";
+
+const latecomers = [
+  { name: "James Davis", lateCount: 35, course: "Calculus II" },
+  { name: "Emma Williams", lateCount: 32, course: "Advanced Physics" },
+];
+
+const behavioralFlags = [
+  { name: "Oliver Martinez", flagCount: 42, issue: "Disruptive Behavior" },
+];
+
 
 export default function AdminDashboardPage() {
   return (
@@ -88,6 +99,66 @@ export default function AdminDashboardPage() {
           </div>
         </CardContent>
        </Card>
+       <Card>
+        <CardHeader>
+          <CardTitle>Student Alerts</CardTitle>
+          <CardDescription>Students with repeated behavioral or attendance issues.</CardDescription>
+        </CardHeader>
+        <CardContent className="grid gap-6 md:grid-cols-2">
+          <Card>
+            <CardHeader className="flex flex-row items-center gap-2 pb-2">
+              <Clock className="h-5 w-5 text-destructive" />
+              <CardTitle className="text-lg">Frequent Latecomers</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Student</TableHead>
+                    <TableHead>Course</TableHead>
+                    <TableHead className="text-right">Count</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {latecomers.map((student) => (
+                    <TableRow key={student.name}>
+                      <TableCell className="font-medium">{student.name}</TableCell>
+                      <TableCell>{student.course}</TableCell>
+                      <TableCell className="text-right font-bold text-destructive">{student.lateCount}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="flex flex-row items-center gap-2 pb-2">
+              <AlertTriangle className="h-5 w-5 text-destructive" />
+              <CardTitle className="text-lg">Behavioral Flags</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Student</TableHead>
+                    <TableHead>Issue</TableHead>
+                    <TableHead className="text-right">Count</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {behavioralFlags.map((student) => (
+                    <TableRow key={student.name}>
+                      <TableCell className="font-medium">{student.name}</TableCell>
+                      <TableCell>{student.issue}</TableCell>
+                      <TableCell className="text-right font-bold text-destructive">{student.flagCount}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        </CardContent>
+      </Card>
     </div>
   );
 }

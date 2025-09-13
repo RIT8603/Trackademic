@@ -145,7 +145,7 @@ export default function ClassroomPage() {
             <CardDescription>A real-time snapshot of your classroom's focus.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="grid gap-4 md:grid-cols-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <Card className="flex flex-col items-center justify-center p-4">
                 <Group className="h-8 w-8 text-muted-foreground mb-2" />
                 <p className="text-3xl font-bold">{totalStudents}</p>
@@ -182,5 +182,4 @@ export default function ClassroomPage() {
   );
 }
 
-// Dummy Label component to satisfy TS until it's properly imported or defined
 const Label: React.FC<React.LabelHTMLAttributes<HTMLLabelElement>> = (props) => <label {...props} />;

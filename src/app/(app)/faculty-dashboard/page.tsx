@@ -1,7 +1,7 @@
 
 "use client"
 import { useState } from "react";
-import { Bar, BarChart, CartesianGrid, XAxis, Line, LineChart, Pie, PieChart, Cell } from "recharts"
+import { Bar, BarChart, CartesianGrid, XAxis, Line, LineChart, Pie, PieChart, Cell, ResponsiveContainer } from "recharts"
 import {
   Card,
   CardContent,
@@ -93,9 +93,10 @@ export default function FacultyDashboardPage() {
                 <CardTitle>Overall Attendance</CardTitle>
                 <CardDescription>Last 7 days</CardDescription>
             </CardHeader>
-            <CardContent>
-                <ChartContainer config={chartConfig} className="h-64">
-                    <BarChart accessibilityLayer data={attendanceData}>
+            <CardContent className="pl-2">
+                <ChartContainer config={chartConfig} className="h-[250px] w-full">
+                  <ResponsiveContainer>
+                    <BarChart accessibilityLayer data={attendanceData} margin={{ top: 20, right: 20, bottom: 5, left: 0 }}>
                         <CartesianGrid vertical={false} />
                         <XAxis
                             dataKey="date"
@@ -111,6 +112,7 @@ export default function FacultyDashboardPage() {
                         <Bar dataKey="Present" stackId="a" fill="var(--color-Present)" radius={[0, 0, 4, 4]} />
                         <Bar dataKey="Absent" stackId="a" fill="var(--color-Absent)" radius={[4, 4, 0, 0]} />
                     </BarChart>
+                  </ResponsiveContainer>
                 </ChartContainer>
             </CardContent>
         </Card>
@@ -139,19 +141,21 @@ export default function FacultyDashboardPage() {
                 <CardTitle>Cheating Detection</CardTitle>
                 <CardDescription>Incidents during Mid-term Exams</CardDescription>
             </CardHeader>
-            <CardContent>
-                <ChartContainer config={{ incidents: { label: "Incidents", color: "hsl(var(--destructive))"}}} className="h-64">
+            <CardContent className="pl-2">
+                <ChartContainer config={{ incidents: { label: "Incidents", color: "hsl(var(--destructive))"}}} className="h-[250px] w-full">
+                  <ResponsiveContainer>
                     <LineChart data={[
                         { exam: "Math", incidents: 2 },
                         { exam: "Physics", incidents: 1 },
                         { exam: "History", incidents: 5 },
                         { exam: "Literature", incidents: 0 },
-                    ]}>
+                    ]} margin={{ top: 20, right: 20, bottom: 5, left: 0 }}>
                         <CartesianGrid vertical={false} />
                         <XAxis dataKey="exam" tickLine={false} axisLine={false} />
                         <ChartTooltip cursor={false} content={<ChartTooltipContent/>} />
                         <Line type="monotone" dataKey="incidents" stroke="var(--color-incidents)" strokeWidth={2} dot={{ fill: "var(--color-incidents)" }} activeDot={{ r: 6 }}/>
                     </LineChart>
+                  </ResponsiveContainer>
                 </ChartContainer>
             </CardContent>
         </Card>

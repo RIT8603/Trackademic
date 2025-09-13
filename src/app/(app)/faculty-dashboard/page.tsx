@@ -1,10 +1,10 @@
+
 "use client"
 import { Bar, BarChart, CartesianGrid, XAxis, Line, LineChart, Pie, PieChart, Cell } from "recharts"
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
@@ -14,6 +14,9 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
+import { studentList } from "@/lib/data"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { CheckCircle, ShieldAlert, XCircle } from "lucide-react"
 
 const attendanceData = [
   { date: "2024-05-01", "Present": 95, "Absent": 5 },
@@ -42,6 +45,16 @@ const engagementData = [
     { name: 'Disengaged', value: 10, fill: 'hsl(var(--destructive))' },
 ]
 
+const attendanceDetails = studentList.map((student, index) => ({
+    name: student,
+    status: index % 4 === 0 ? 'Absent' : 'Present'
+})).sort((a,b) => a.name.localeCompare(b.name));
+
+const cheatingIncidents = [
+    { student: 'Sophia Miller', exam: 'History Mid-term', details: 'Unauthorized notes detected.' },
+    { student: 'James Davis', exam: 'History Mid-term', details: 'Mobile phone usage.' },
+    { student: 'Liam Brown', exam: 'Math Mid-term', details: 'Copying from another student.' },
+]
 
 export default function FacultyDashboardPage() {
   return (
@@ -51,7 +64,7 @@ export default function FacultyDashboardPage() {
         <p className="text-muted-foreground">Data-driven reports for institutional growth and student success.</p>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         <Card>
             <CardHeader>
                 <CardTitle>Overall Attendance</CardTitle>
@@ -117,6 +130,76 @@ export default function FacultyDashboardPage() {
                         <Line type="monotone" dataKey="incidents" stroke="var(--color-incidents)" strokeWidth={2} dot={{ fill: "var(--color-incidents)" }} activeDot={{ r: 6 }}/>
                     </LineChart>
                 </ChartContainer>
+            </CardContent>
+        </Card>
+      </div>
+      
+      <div className="grid gap-6 lg:grid-cols-2">
+        <Card>
+            <CardHeader>
+                <CardTitle>Today's Attendance Details</CardTitle>
+                <CardDescription>Status for all students in Physics 101.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <Table>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead>Student Name</TableHead>
+                            <TableHead className="text-right">Status</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {attendanceDetails.map((student) => (
+                            <TableRow key={student.name}>
+                                <TableCell className="font-medium">{student.name}</TableCell>
+                                <TableCell className="text-right">
+                                     <div className="flex items-center justify-end gap-2">
+                                        {student.status === 'Present' ? (
+                                            <>
+                                                <CheckCircle className="h-5 w-5 text-green-500" />
+                                                <span>Present</span>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <XCircle className="h-5 w-5 text-destructive" />
+                                                <span>Absent</span>
+                                            </>
+                                        )}
+                                    </div>
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </CardContent>
+        </Card>
+        <Card>
+            <CardHeader>
+                <CardTitle>Cheating Incidents Report</CardTitle>
+                <CardDescription>Detailed log of academic integrity violations.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <Table>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead>Student</TableHead>
+                            <TableHead>Exam</TableHead>
+                            <TableHead>Details</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {cheatingIncidents.map((incident, index) => (
+                            <TableRow key={index}>
+                                <TableCell className="font-medium">{incident.student}</TableCell>
+                                <TableCell>{incident.exam}</TableCell>
+                                <TableCell className="text-destructive flex items-center gap-2">
+                                    <ShieldAlert className="h-4 w-4" />
+                                    {incident.details}
+                                </TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
             </CardContent>
         </Card>
       </div>

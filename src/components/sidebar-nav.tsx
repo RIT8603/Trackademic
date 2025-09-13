@@ -31,7 +31,7 @@ const links = [
   { href: '/attendance', label: 'Attendance', icon: CalendarCheck },
   { href: '/planner', label: 'Planner', icon: BookOpenCheck },
   { href: '/classroom', label: 'Live Classroom', icon: Video },
-  { href: '/security', label: 'Security', icon: ShieldAlert },
+  { href: '~/app/(app)/security/page.tsx', label: 'Security', icon: ShieldAlert },
 ]
 
 const bottomLinks = [

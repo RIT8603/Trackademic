@@ -1,3 +1,4 @@
+
 'use client';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -141,28 +142,32 @@ export default function PlannerPage() {
         <div className="space-y-4">
           <h2 className="text-2xl font-bold tracking-tight">Your Suggested Activities</h2>
           {isLoading ? (
-             <Card className="flex items-center justify-center h-96 min-h-[384px]">
+             <Card className="flex items-center justify-center min-h-[30rem] lg:min-h-full">
                 <div className="flex flex-col items-center gap-2 text-muted-foreground">
                     <Loader2 className="h-8 w-8 animate-spin" />
                     <p>Generating your plan...</p>
                 </div>
              </Card>
           ) : suggestions ? (
-            <Alert className="bg-background">
-              <Lightbulb className="h-4 w-4" />
-              <AlertTitle>Here is your personalized plan!</AlertTitle>
-              <AlertDescription>
-                <ul className="list-decimal space-y-3 pl-5 mt-4">
-                  {suggestions.suggestedActivities.map((activity, index) => (
-                    <li key={index} className="pl-2">{activity}</li>
-                  ))}
-                </ul>
-              </AlertDescription>
-            </Alert>
+            <Card className="min-h-[30rem] lg:min-h-full">
+                <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                        <Lightbulb className="h-5 w-5 text-accent" />
+                        Here is your personalized plan!
+                    </CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <ul className="list-decimal space-y-3 pl-5 mt-4">
+                    {suggestions.suggestedActivities.map((activity, index) => (
+                        <li key={index} className="pl-2">{activity}</li>
+                    ))}
+                    </ul>
+                </CardContent>
+            </Card>
           ) : (
-            <Card className="flex items-center justify-center h-96 min-h-[384px] border-dashed">
-                <div className="text-center text-muted-foreground">
-                    <p>Your suggested activities will appear here.</p>
+            <Card className="flex items-center justify-center min-h-[30rem] lg:min-h-full border-dashed">
+                <div className="text-center text-muted-foreground p-4">
+                    <p>Fill out the form and your suggested activities will appear here.</p>
                 </div>
             </Card>
           )}

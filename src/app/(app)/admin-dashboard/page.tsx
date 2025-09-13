@@ -1,3 +1,4 @@
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Users, BookOpen, ShieldCheck, BarChart3, AlertTriangle, Clock, MoreHorizontal } from "lucide-react";
@@ -112,7 +113,7 @@ export default function AdminDashboardPage() {
                 <TableHeader>
                   <TableRow>
                     <TableHead>Student</TableHead>
-                    <TableHead>Course</TableHead>
+                    <TableHead className="hidden sm:table-cell">Course</TableHead>
                     <TableHead className="text-right">Count</TableHead>
                     <TableHead className="text-right">Actions</TableHead>
                   </TableRow>
@@ -121,7 +122,7 @@ export default function AdminDashboardPage() {
                   {latecomers.map((student) => (
                     <TableRow key={student.name}>
                       <TableCell className="font-medium">{student.name}</TableCell>
-                      <TableCell>{student.course}</TableCell>
+                      <TableCell className="hidden sm:table-cell">{student.course}</TableCell>
                       <TableCell className="text-right font-bold text-destructive">{student.lateCount}</TableCell>
                       <TableCell className="text-right">
                         <DropdownMenu>
@@ -157,7 +158,7 @@ export default function AdminDashboardPage() {
                 <TableHeader>
                   <TableRow>
                     <TableHead>Student</TableHead>
-                    <TableHead>Issue</TableHead>
+                    <TableHead className="hidden sm:table-cell">Issue</TableHead>
                     <TableHead className="text-right">Count</TableHead>
                     <TableHead className="text-right">Actions</TableHead>
                   </TableRow>
@@ -166,7 +167,7 @@ export default function AdminDashboardPage() {
                   {behavioralFlags.map((student) => (
                     <TableRow key={student.name}>
                       <TableCell className="font-medium">{student.name}</TableCell>
-                      <TableCell>Disruptive Behavior</TableCell>
+                      <TableCell className="hidden sm:table-cell">Disruptive Behavior</TableCell>
                       <TableCell className="text-right font-bold text-destructive">{student.behavioralFlags}</TableCell>
                        <TableCell className="text-right">
                         <DropdownMenu>

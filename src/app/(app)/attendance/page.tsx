@@ -1,3 +1,4 @@
+
 'use client';
 import React, { useState } from 'react';
 import { automateAttendance, AutomateAttendanceOutput } from '@/ai/flows/automate-attendance';
@@ -85,7 +86,7 @@ export default function AttendancePage() {
             <Label htmlFor="video-upload">Upload Video</Label>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                 <Input id="video-upload" type="file" accept="video/*" onChange={handleFileChange} />
-                <Button onClick={handleProcessAttendance} disabled={isLoading || !videoFile} className="w-full sm:w-auto">
+                <Button onClick={handleProcessAttendance} disabled={isLoading || !videoFile} className="w-full sm:w-auto shrink-0">
                     {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Upload className="mr-2 h-4 w-4" />}
                     Process
                 </Button>

@@ -1,3 +1,4 @@
+
 'use client';
 import { analyzeClassroomEngagement } from '@/ai/flows/analyze-classroom-engagement';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
@@ -5,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
-import { Camera, Group, Info, Loader2, User, UserCheck, UserX } from 'lucide-react';
+import { Camera, Group, Info, Loader2, UserCheck, UserX } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
 
 export default function ClassroomPage() {
@@ -51,8 +52,8 @@ export default function ClassroomPage() {
     getCameraPermission();
 
     return () => {
-      const stream = videoRef.current?.srcObject as MediaStream | null;
-      if (stream) {
+      if (videoRef.current && videoRef.current.srcObject) {
+        const stream = videoRef.current.srcObject as MediaStream;
         stream.getTracks().forEach((track) => track.stop());
       }
     };
@@ -130,7 +131,7 @@ export default function ClassroomPage() {
             )}
           </div>
           <div className="flex justify-center">
-            <Button onClick={handleAnalyzeEngagement} disabled={isLoading || !hasCameraPermission}>
+            <Button onClick={handleAnalyzeEngagement} disabled={isLoading || hasCameraPermission !== true}>
               {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Info className="mr-2 h-4 w-4" />}
               Analyze Engagement
             </Button>

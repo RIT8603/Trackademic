@@ -60,11 +60,9 @@ export function SidebarNav() {
           {links.map((link) => (
             <SidebarMenuItem key={link.href}>
               <Link href={link.href} passHref>
-                <SidebarMenuButton asChild isActive={pathname.startsWith(link.href)} tooltip={link.label}>
-                  <span>
+                <SidebarMenuButton isActive={pathname.startsWith(link.href)} tooltip={link.label}>
                     <link.icon />
                     <span>{link.label}</span>
-                  </span>
                 </SidebarMenuButton>
               </Link>
             </SidebarMenuItem>
@@ -76,11 +74,9 @@ export function SidebarNav() {
             {bottomLinks.map((link) => (
                 <SidebarMenuItem key={link.href}>
                 <Link href={link.href} passHref>
-                    <SidebarMenuButton asChild isActive={pathname.startsWith(link.href)} tooltip={link.label}>
-                    <span>
+                    <SidebarMenuButton isActive={pathname.startsWith(link.href)} tooltip={link.label}>
                         <link.icon />
                         <span>{link.label}</span>
-                    </span>
                     </SidebarMenuButton>
                 </Link>
                 </SidebarMenuItem>

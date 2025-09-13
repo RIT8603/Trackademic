@@ -1,3 +1,35 @@
+
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "user-avatar",
+      "description": "User avatar",
+      "imageUrl": "https://picsum.photos/seed/user-avatar/100/100",
+      "imageHint": "person face"
+    },
+    {
+      "id": "course-math",
+      "description": "Mathematics course thumbnail",
+      "imageUrl": "https://picsum.photos/seed/math/400/200",
+      "imageHint": "chalkboard equations"
+    },
+    {
+      "id": "course-physics",
+      "description": "Physics course thumbnail",
+      "imageUrl": "https://picsum.photos/seed/physics/400/200",
+      "imageHint": "atom model"
+    },
+    {
+      "id": "course-history",
+      "description": "History course thumbnail",
+      "imageUrl": "https://picsum.photos/seed/history/400/200",
+      "imageHint": "ancient scroll"
+    },
+    {
+      "id": "course-literature",
+      "description": "Literature course thumbnail",
+      "imageUrl": "https://picsum.photos/seed/literature/400/200",
+      "imageHint": "stack books"
+    }
+  ]
 }

@@ -16,6 +16,7 @@ import {
   Settings,
   CircleHelp,
   ShieldCheck,
+  Video,
 } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -24,6 +25,7 @@ const links = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/attendance', label: 'Attendance', icon: CalendarCheck },
   { href: '/planner', label: 'Planner', icon: BookOpenCheck },
+  { href: '/classroom', label: 'Live Classroom', icon: Video },
   { href: '/analytics', label: 'Analytics', icon: BarChart3 },
   { href: '/security', label: 'Security', icon: ShieldAlert },
 ]

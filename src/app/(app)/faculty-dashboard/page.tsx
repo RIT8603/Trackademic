@@ -1,5 +1,6 @@
 
 "use client"
+import { useState } from "react";
 import { Bar, BarChart, CartesianGrid, XAxis, Line, LineChart, Pie, PieChart, Cell } from "recharts"
 import {
   Card,
@@ -16,9 +17,12 @@ import {
 } from "@/components/ui/chart"
 import { studentList } from "@/lib/data"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { CheckCircle, MoreHorizontal, ShieldAlert, XCircle } from "lucide-react"
+import { CheckCircle, Download, MoreHorizontal, ShieldAlert, XCircle } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import * as XLSX from 'xlsx';
+
 
 const attendanceData = [
   { date: "2024-05-01", "Present": 95, "Absent": 5 },
@@ -47,7 +51,7 @@ const engagementData = [
     { name: 'Disengaged', value: 10, fill: 'hsl(var(--destructive))' },
 ]
 
-const attendanceDetails = studentList.map((student, index) => ({
+const initialAttendanceDetails = studentList.map((student, index) => ({
     name: student,
     status: index % 4 === 0 ? 'Absent' : 'Present',
     email: `${student.toLowerCase().replace(' ', '.')}@example.com`,
@@ -61,6 +65,21 @@ const cheatingIncidents = [
 ]
 
 export default function FacultyDashboardPage() {
+  const [attendanceDetails, setAttendanceDetails] = useState(initialAttendanceDetails);
+
+  const handleAttendanceChange = (studentName: string, newStatus: 'Present' | 'Absent') => {
+    setAttendanceDetails(prevDetails => prevDetails.map(student => 
+        student.name === studentName ? { ...student, status: newStatus } : student
+    ));
+  }
+
+  const exportToExcel = () => {
+    const worksheet = XLSX.utils.json_to_sheet(attendanceDetails);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Attendance");
+    XLSX.writeFile(workbook, "AttendanceDetails.xlsx");
+  };
+
   return (
     <div className="space-y-6">
       <div>
@@ -140,9 +159,15 @@ export default function FacultyDashboardPage() {
       
       <div className="grid gap-6 lg:grid-cols-2">
         <Card>
-            <CardHeader>
+            <CardHeader className="flex flex-row items-center justify-between">
+              <div>
                 <CardTitle>Today's Attendance Details</CardTitle>
                 <CardDescription>Status for all students in Physics 101.</CardDescription>
+              </div>
+              <Button onClick={exportToExcel} variant="outline" size="sm">
+                <Download className="mr-2 h-4 w-4" />
+                Export to Excel
+              </Button>
             </CardHeader>
             <CardContent>
                 <Table>
@@ -158,19 +183,28 @@ export default function FacultyDashboardPage() {
                             <TableRow key={student.name}>
                                 <TableCell className="font-medium">{student.name}</TableCell>
                                 <TableCell>
-                                     <div className="flex items-center gap-2">
-                                        {student.status === 'Present' ? (
-                                            <>
-                                                <CheckCircle className="h-5 w-5 text-green-500" />
-                                                <span>Present</span>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <XCircle className="h-5 w-5 text-destructive" />
-                                                <span>Absent</span>
-                                            </>
-                                        )}
-                                    </div>
+                                    <Select 
+                                        value={student.status}
+                                        onValueChange={(value: 'Present' | 'Absent') => handleAttendanceChange(student.name, value)}
+                                    >
+                                        <SelectTrigger className={`w-32 h-8 text-xs [&_svg]:h-4 [&_svg]:w-4 ${student.status === 'Present' ? 'bg-green-100/50 text-green-700 border-green-200' : 'bg-red-100/50 text-red-700 border-red-200'}`}>
+                                            <SelectValue placeholder="Set status" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectItem value="Present">
+                                                <div className="flex items-center gap-2">
+                                                    <CheckCircle className="h-4 w-4 text-green-500" />
+                                                    Present
+                                                </div>
+                                            </SelectItem>
+                                            <SelectItem value="Absent">
+                                                <div className="flex items-center gap-2">
+                                                    <XCircle className="h-4 w-4 text-destructive" />
+                                                    Absent
+                                                </div>
+                                            </SelectItem>
+                                        </SelectContent>
+                                    </Select>
                                 </TableCell>
                                 <TableCell className="text-right">
                                      <DropdownMenu>
@@ -233,7 +267,7 @@ export default function FacultyDashboardPage() {
                                                  <a href={`mailto:${incident.email}?subject=Academic Integrity Violation&body=Dear ${incident.student},%0D%0A%0D%0AAn academic integrity violation was reported during your ${incident.exam}: ${incident.details}.%0D%0A%0D%0APlease see the administration.%0D%0A%0D%0ARegards,%0D%0AFaculty`}>Email Student</a>
                                             </DropdownMenuItem>
                                              <DropdownMenuItem asChild>
-                                                <a href={`mailto:${incident.parentEmail}?subject=Academic Integrity Notice: ${incident.student}&body=Dear Parent/Guardian,%0D%0A%0D%0AThis is to inform you that an academic integrity violation was reported for ${incident.student} during the ${incident.exam}: ${incident.details}.%0D%0A%0D%0ARegards,%0D%0AFaculty`}>Email Parent</a>
+                                                <a href={`mailto:${incident.parentEmail}?subject=Academic Integrity Notice: ${incident.student}&body=Dear Parent/Guardian,%0D%0A%0D%0AThis is to inform you that an academic integrity violation was reported for ${incident.student} during the ${incident.exam}: ${incident.details}.%0D%0A%0D%0ARegards,%0D%9AFaculty`}>Email Parent</a>
                                             </DropdownMenuItem>
                                         </DropdownMenuContent>
                                     </DropdownMenu>

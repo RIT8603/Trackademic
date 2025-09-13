@@ -16,7 +16,9 @@ import {
 } from "@/components/ui/chart"
 import { studentList } from "@/lib/data"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { CheckCircle, ShieldAlert, XCircle } from "lucide-react"
+import { CheckCircle, MoreHorizontal, ShieldAlert, XCircle } from "lucide-react"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { Button } from "@/components/ui/button"
 
 const attendanceData = [
   { date: "2024-05-01", "Present": 95, "Absent": 5 },
@@ -47,13 +49,15 @@ const engagementData = [
 
 const attendanceDetails = studentList.map((student, index) => ({
     name: student,
-    status: index % 4 === 0 ? 'Absent' : 'Present'
+    status: index % 4 === 0 ? 'Absent' : 'Present',
+    email: `${student.toLowerCase().replace(' ', '.')}@example.com`,
+    parentEmail: `parent.${student.toLowerCase().split(' ')[1]}@example.com`
 })).sort((a,b) => a.name.localeCompare(b.name));
 
 const cheatingIncidents = [
-    { student: 'Sophia Miller', exam: 'History Mid-term', details: 'Unauthorized notes detected.' },
-    { student: 'James Davis', exam: 'History Mid-term', details: 'Mobile phone usage.' },
-    { student: 'Liam Brown', exam: 'Math Mid-term', details: 'Copying from another student.' },
+    { student: 'Sophia Miller', exam: 'History Mid-term', details: 'Unauthorized notes detected.', email: 'sophia.miller@example.com', parentEmail: 'parent.miller@example.com' },
+    { student: 'James Davis', exam: 'History Mid-term', details: 'Mobile phone usage.', email: 'james.davis@example.com', parentEmail: 'parent.davis@example.com' },
+    { student: 'Liam Brown', exam: 'Math Mid-term', details: 'Copying from another student.', email: 'liam.brown@example.com', parentEmail: 'parent.brown@example.com' },
 ]
 
 export default function FacultyDashboardPage() {
@@ -145,15 +149,16 @@ export default function FacultyDashboardPage() {
                     <TableHeader>
                         <TableRow>
                             <TableHead>Student Name</TableHead>
-                            <TableHead className="text-right">Status</TableHead>
+                            <TableHead>Status</TableHead>
+                            <TableHead className="text-right">Actions</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {attendanceDetails.map((student) => (
                             <TableRow key={student.name}>
                                 <TableCell className="font-medium">{student.name}</TableCell>
-                                <TableCell className="text-right">
-                                     <div className="flex items-center justify-end gap-2">
+                                <TableCell>
+                                     <div className="flex items-center gap-2">
                                         {student.status === 'Present' ? (
                                             <>
                                                 <CheckCircle className="h-5 w-5 text-green-500" />
@@ -166,6 +171,24 @@ export default function FacultyDashboardPage() {
                                             </>
                                         )}
                                     </div>
+                                </TableCell>
+                                <TableCell className="text-right">
+                                     <DropdownMenu>
+                                        <DropdownMenuTrigger asChild>
+                                            <Button variant="ghost" className="h-8 w-8 p-0">
+                                            <span className="sr-only">Open menu</span>
+                                            <MoreHorizontal className="h-4 w-4" />
+                                            </Button>
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent align="end">
+                                            <DropdownMenuItem asChild>
+                                                <a href={`mailto:${student.email}?subject=Attendance Notice&body=Dear ${student.name},%0D%0A%0D%0AThis is a notification regarding your attendance for Physics 101 today. You were marked as ${student.status}.%0D%0A%0D%0ARegards,%0D%0AFaculty`}>Email Student</a>
+                                            </DropdownMenuItem>
+                                            <DropdownMenuItem asChild>
+                                                <a href={`mailto:${student.parentEmail}?subject=Student Attendance Notice: ${student.name}&body=Dear Parent/Guardian,%0D%0A%0D%0AThis is to inform you that ${student.name} was marked as ${student.status} for Physics 101 today.%0D%0A%0D%0ARegards,%0D%0AFaculty`}>Email Parent</a>
+                                            </DropdownMenuItem>
+                                        </DropdownMenuContent>
+                                    </DropdownMenu>
                                 </TableCell>
                             </TableRow>
                         ))}
@@ -185,6 +208,7 @@ export default function FacultyDashboardPage() {
                             <TableHead>Student</TableHead>
                             <TableHead>Exam</TableHead>
                             <TableHead>Details</TableHead>
+                            <TableHead className="text-right">Actions</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -195,6 +219,24 @@ export default function FacultyDashboardPage() {
                                 <TableCell className="text-destructive flex items-center gap-2">
                                     <ShieldAlert className="h-4 w-4" />
                                     {incident.details}
+                                </TableCell>
+                                <TableCell className="text-right">
+                                     <DropdownMenu>
+                                        <DropdownMenuTrigger asChild>
+                                            <Button variant="ghost" className="h-8 w-8 p-0">
+                                            <span className="sr-only">Open menu</span>
+                                            <MoreHorizontal className="h-4 w-4" />
+                                            </Button>
+                                        </DropdownMenuTrigger>
+                                        <DropdownMenuContent align="end">
+                                            <DropdownMenuItem asChild>
+                                                 <a href={`mailto:${incident.email}?subject=Academic Integrity Violation&body=Dear ${incident.student},%0D%0A%0D%0AAn academic integrity violation was reported during your ${incident.exam}: ${incident.details}.%0D%0A%0D%0APlease see the administration.%0D%0A%0D%0ARegards,%0D%0AFaculty`}>Email Student</a>
+                                            </DropdownMenuItem>
+                                             <DropdownMenuItem asChild>
+                                                <a href={`mailto:${incident.parentEmail}?subject=Academic Integrity Notice: ${incident.student}&body=Dear Parent/Guardian,%0D%0A%0D%0AThis is to inform you that an academic integrity violation was reported for ${incident.student} during the ${incident.exam}: ${incident.details}.%0D%0A%0D%0ARegards,%0D%0AFaculty`}>Email Parent</a>
+                                            </DropdownMenuItem>
+                                        </DropdownMenuContent>
+                                    </DropdownMenu>
                                 </TableCell>
                             </TableRow>
                         ))}

@@ -16,7 +16,7 @@ const DetectUnauthorizedActivitiesInputSchema = z.object({
   videoDataUri: z
     .string()
     .describe(
-      "A video of a classroom or campus area, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'."
+      "A video of a classroom or campus area, as a data URI that must include a MIME type and use Base64 encoding. Expected format: 'data:<mimetype>;base64,<encoded_data>'"
     ),
   isExam: z.boolean().optional().describe("A boolean to indicate if an exam is in progress, to enable cheating detection.")
 });

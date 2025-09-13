@@ -16,7 +16,7 @@ export default function AdminDashboardPage() {
         <h1 className="text-3xl font-bold tracking-tight font-headline">Admin Dashboard</h1>
         <p className="text-muted-foreground">Overall institutional management and oversight.</p>
       </div>
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Students</CardTitle>
@@ -63,7 +63,7 @@ export default function AdminDashboardPage() {
           <CardTitle>System Wide Analytics</CardTitle>
           <CardDescription>High-level overview of campus metrics.</CardDescription>
         </CardHeader>
-        <CardContent className="grid gap-6 md:grid-cols-2">
+        <CardContent className="grid gap-6 grid-cols-1 md:grid-cols-2">
           <div className="space-y-4">
             <h3 className="font-semibold">Attendance Rate</h3>
              <div className="flex items-center gap-4">
@@ -101,7 +101,7 @@ export default function AdminDashboardPage() {
           <CardTitle>Student Alerts</CardTitle>
           <CardDescription>Students with repeated behavioral or attendance issues.</CardDescription>
         </CardHeader>
-        <CardContent className="grid gap-6 md:grid-cols-2">
+        <CardContent className="grid gap-6 grid-cols-1 lg:grid-cols-2">
           <Card>
             <CardHeader className="flex flex-row items-center gap-2 pb-2">
               <Clock className="h-5 w-5 text-destructive" />

@@ -94,14 +94,14 @@ export default function ManageStudentsPage() {
         <p className="text-muted-foreground">Add, edit, or remove student records.</p>
       </div>
       <Card>
-        <CardHeader className="flex flex-row justify-between items-center">
+        <CardHeader className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
                 <CardTitle>Student List</CardTitle>
                 <CardDescription>A complete directory of all students in the institution.</CardDescription>
             </div>
             <Dialog onOpenChange={(isOpen) => !isOpen && openDialog()}>
                 <DialogTrigger asChild>
-                    <Button onClick={() => openDialog()}>
+                    <Button onClick={() => openDialog()} className="w-full md:w-auto">
                         <PlusCircle className="mr-2" />
                         Add Student
                     </Button>

@@ -68,7 +68,7 @@ export default function PlannerPage() {
         <p className="text-muted-foreground">Get a personalized plan to help you achieve your academic and career goals.</p>
       </div>
 
-      <div className="grid gap-8 md:grid-cols-2">
+      <div className="grid gap-8 lg:grid-cols-2">
         <Card>
           <CardHeader>
             <CardTitle>Tell Us About Yourself</CardTitle>
@@ -141,7 +141,7 @@ export default function PlannerPage() {
         <div className="space-y-4">
           <h2 className="text-2xl font-bold tracking-tight">Your Suggested Activities</h2>
           {isLoading ? (
-             <Card className="flex items-center justify-center h-96">
+             <Card className="flex items-center justify-center h-96 min-h-[384px]">
                 <div className="flex flex-col items-center gap-2 text-muted-foreground">
                     <Loader2 className="h-8 w-8 animate-spin" />
                     <p>Generating your plan...</p>
@@ -160,7 +160,7 @@ export default function PlannerPage() {
               </AlertDescription>
             </Alert>
           ) : (
-            <Card className="flex items-center justify-center h-96 border-dashed">
+            <Card className="flex items-center justify-center h-96 min-h-[384px] border-dashed">
                 <div className="text-center text-muted-foreground">
                     <p>Your suggested activities will appear here.</p>
                 </div>

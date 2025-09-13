@@ -83,9 +83,9 @@ export default function AttendancePage() {
         <CardContent className="space-y-4">
           <div className="grid w-full max-w-sm items-center gap-1.5">
             <Label htmlFor="video-upload">Upload Video</Label>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                 <Input id="video-upload" type="file" accept="video/*" onChange={handleFileChange} />
-                <Button onClick={handleProcessAttendance} disabled={isLoading || !videoFile}>
+                <Button onClick={handleProcessAttendance} disabled={isLoading || !videoFile} className="w-full sm:w-auto">
                     {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Upload className="mr-2 h-4 w-4" />}
                     Process
                 </Button>

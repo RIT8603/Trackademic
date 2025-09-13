@@ -20,6 +20,7 @@ import {
   User,
   GraduationCap,
   Briefcase,
+  Users,
 } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -28,10 +29,11 @@ const links = [
   { href: '/student-dashboard', label: 'Student Dashboard', icon: GraduationCap },
   { href: '/faculty-dashboard', label: 'Faculty Dashboard', icon: Briefcase },
   { href: '/admin-dashboard', label: 'Admin Dashboard', icon: LayoutDashboard },
+  { href: '/admin-dashboard/manage-students', label: 'Manage Students', icon: Users },
   { href: '/attendance', label: 'Attendance', icon: CalendarCheck },
   { href: '/planner', label: 'Planner', icon: BookOpenCheck },
   { href: '/classroom', label: 'Live Classroom', icon: Video },
-  { href: '~/app/(app)/security/page.tsx', label: 'Security', icon: ShieldAlert },
+  { href: '/security', label: 'Security', icon: ShieldAlert },
 ]
 
 const bottomLinks = [

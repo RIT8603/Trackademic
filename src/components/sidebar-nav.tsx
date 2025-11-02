@@ -28,6 +28,7 @@ import { useEffect, useState } from 'react'
 
 const links = [
   { href: '/student-dashboard', label: 'Student Dashboard', icon: GraduationCap },
+  { href: 'https://chatbot-n5go.onrender.com', label: 'Student Chatbot', icon: ChatFlow},
   { href: '/faculty-dashboard', label: 'Faculty Dashboard', icon: Briefcase },
   { href: '/admin-dashboard', label: 'Admin Dashboard', icon: LayoutDashboard },
   { href: '/admin-dashboard/manage-students', label: 'Manage Students', icon: Users },

@@ -1,4 +1,5 @@
 "use client"
+
 import {
   SidebarHeader,
   SidebarMenu,
@@ -21,6 +22,7 @@ import {
   GraduationCap,
   Briefcase,
   Users,
+  Bot, // ✅ added
 } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -39,9 +41,9 @@ const links = [
 ]
 
 const bottomLinks = [
-    { href: '/profile', label: 'Profile', icon: User },
-    { href: '/settings', label: 'Settings', icon: Settings },
-    { href: '/help', label: 'Help', icon: CircleHelp },
+  { href: '/profile', label: 'Profile', icon: User },
+  { href: '/settings', label: 'Settings', icon: Settings },
+  { href: '/help', label: 'Help', icon: CircleHelp },
 ]
 
 export function SidebarNav() {
@@ -52,48 +54,46 @@ export function SidebarNav() {
     setIsClient(true)
   }, [])
 
+  // ✅ Reusable function for rendering a single link
+  const renderLink = (link: any) => (
+    <SidebarMenuItem key={link.href}>
+      {link.external ? (
+        <a href={link.href} target="_blank" rel="noopener noreferrer">
+          <SidebarMenuButton tooltip={link.label}>
+            <link.icon />
+            <span>{link.label}</span>
+          </SidebarMenuButton>
+        </a>
+      ) : (
+        <Link href={link.href} passHref>
+          <SidebarMenuButton isActive={pathname.startsWith(link.href)} tooltip={link.label}>
+            <link.icon />
+            <span>{link.label}</span>
+          </SidebarMenuButton>
+        </Link>
+      )}
+    </SidebarMenuItem>
+  )
 
   return (
     <>
       <SidebarHeader>
         <div className="flex items-center gap-3 p-2">
-            <div className="p-2 rounded-lg bg-primary text-primary-foreground w-10 h-10 flex items-center justify-center">
-                <ShieldCheck className="h-6 w-6"/>
-            </div>
-            <h1 className="text-xl font-bold font-headline text-sidebar-foreground whitespace-nowrap">TrackAcdemic</h1>
+          <div className="p-2 rounded-lg bg-primary text-primary-foreground w-10 h-10 flex items-center justify-center">
+            <ShieldCheck className="h-6 w-6" />
+          </div>
+          <h1 className="text-xl font-bold font-headline text-sidebar-foreground whitespace-nowrap">
+            TrackAcdemic
+          </h1>
         </div>
       </SidebarHeader>
+
       <SidebarContent className="p-2">
-        {isClient && (
-          <SidebarMenu>
-            {links.map((link) => (
-              <SidebarMenuItem key={link.href}>
-                <Link href={link.href} passHref>
-                  <SidebarMenuButton isActive={pathname.startsWith(link.href)} tooltip={link.label}>
-                      <link.icon />
-                      <span>{link.label}</span>
-                  </SidebarMenuButton>
-                </Link>
-              </SidebarMenuItem>
-            ))}
-          </SidebarMenu>
-        )}
+        {isClient && <SidebarMenu>{links.map(renderLink)}</SidebarMenu>}
       </SidebarContent>
+
       <SidebarFooter>
-        {isClient && (
-          <SidebarMenu>
-              {bottomLinks.map((link) => (
-                  <SidebarMenuItem key={link.href}>
-                  <Link href={link.href} passHref>
-                      <SidebarMenuButton isActive={pathname.startsWith(link.href)} tooltip={link.label}>
-                          <link.icon />
-                          <span>{link.label}</span>
-                      </SidebarMenuButton>
-                  </Link>
-                  </SidebarMenuItem>
-              ))}
-          </SidebarMenu>
-        )}
+        {isClient && <SidebarMenu>{bottomLinks.map(renderLink)}</SidebarMenu>}
       </SidebarFooter>
     </>
   )

@@ -34,7 +34,6 @@ const links = [
   { href: '/faculty-dashboard', label: 'Faculty Dashboard', icon: Briefcase },
   { href: '/admin-dashboard', label: 'Admin Dashboard', icon: LayoutDashboard },
   { href: '/admin-dashboard/manage-students', label: 'Manage Students', icon: Users },
-  { href: '/attendance', label: 'Attendance', icon: CalendarCheck },
   { href: '/planner', label: 'Planner', icon: BookOpenCheck },
   { href: '/classroom', label: 'Live Classroom', icon: Video },
   { href: '/security', label: 'Security', icon: ShieldAlert },

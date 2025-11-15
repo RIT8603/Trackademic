@@ -5,7 +5,7 @@
 
 This project is an **AI-powered education platform** that automates classroom attendance, boosts academic productivity, and ensures transparency with real-time dashboards. It integrates **face recognition, activity monitoring, analytics, and personalized planners** into a single system for students, teachers, admins, and parents.
 
-### Website link : https://trackademix-5ljq68jvo-mr-riteshs-projects.vercel.app/student-dashboard
+### Website link : [https://trackademix-5ljq68jvo-mr-riteshs-projects.vercel.app/student-dashboard](https://trackademix.vercel.app/student-dashboard)
 
 ## 🚀 Features
 
